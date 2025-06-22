@@ -27,14 +27,15 @@ public class FinanceApiController {
         return ResponseEntity.ok(getUser.getUsername());
     }
 
-    @PostMapping("/insert")
-    public ResponseEntity<FinanceCategoryResponse> inserFinanceCategory(HttpSession httpSession, FinanceCategoryRequest financeCategoryRequest){
-        Long userId = (Long) httpSession.getAttribute("loginId");
+    @PostMapping("/create")
+    public ResponseEntity<FinanceCategoryResponse> insertFinanceCategory(@RequestBody FinanceCategoryRequest financeCategoryRequest){
+
         FinanceCategory fc = new FinanceCategory();
         fc.setCategoryName(financeCategoryRequest.getCategoryName());
+        Long userId = financeCategoryRequest.getUserId();
         fc.setUser(financeService.findUsernameById(userId));
         fc.setFType(financeCategoryRequest.getFType());
-        FinanceCategory savedFc = financeService.save(fc);
+        FinanceCategory savedFc = financeService.save(financeCategoryRequest, userId);
 
         FinanceCategoryResponse fr = new FinanceCategoryResponse();
         fr.setCategoryId(savedFc.getCategoryId());

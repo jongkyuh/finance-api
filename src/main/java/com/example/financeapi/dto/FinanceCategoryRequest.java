@@ -7,4 +7,5 @@ import lombok.Data;
 public class FinanceCategoryRequest {
     private String categoryName;
     private FinanceType fType;
+    private Long userId;
 }

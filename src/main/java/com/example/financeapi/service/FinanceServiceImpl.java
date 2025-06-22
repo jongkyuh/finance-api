@@ -1,5 +1,6 @@
 package com.example.financeapi.service;
 
+import com.example.financeapi.dto.FinanceCategoryRequest;
 import com.example.financeapi.entity.FinanceCategory;
 import com.example.financeapi.entity.FinanceType;
 import com.example.financeapi.entity.Users;
@@ -24,8 +25,14 @@ public class FinanceServiceImpl implements FinanceService{
     }
 
     @Override
-    public FinanceCategory save(FinanceCategory financeCategory) {
-        return financeRepository.save(financeCategory);
+    public FinanceCategory save(FinanceCategoryRequest fr, long userId) {
+        FinanceCategory fc = new FinanceCategory();
+        // FinanceCategory 엔티티 설정
+        fc.setCategoryName(fr.getCategoryName());
+        fc.setUser(findUsernameById(userId));
+        fc.setFType(fr.getFType());
+
+        return financeRepository.save(fc);
     }
 
 }
