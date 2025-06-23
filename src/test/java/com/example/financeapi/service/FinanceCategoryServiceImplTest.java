@@ -1,12 +1,12 @@
 package com.example.financeapi.service;
 
 import com.example.financeapi.dto.FinanceCategoryRequest;
+import com.example.financeapi.dto.FinanceCategoryResponse;
 import com.example.financeapi.entity.FinanceCategory;
 import com.example.financeapi.entity.FinanceType;
 import com.example.financeapi.entity.Users;
 import com.example.financeapi.repository.finance.FinanceRepository;
 import com.example.financeapi.repository.user.UserRepository;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,9 +19,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
-class FinanceServiceImplTest {
+class FinanceCategoryServiceImplTest {
 
-    @Autowired private FinanceService financeService;
+    @Autowired private FinanceCategoryService financeService;
     @Autowired private UserRepository userRepository;
     @Autowired private FinanceRepository financeRepository;
 
@@ -42,7 +42,7 @@ class FinanceServiceImplTest {
         fr.setCategoryName("식비");
         fr.setFType(FinanceType.EXPENSE);
 
-        FinanceCategory savedCategory = financeService.save(fr, savedUser.getId());
+        FinanceCategoryResponse savedCategory = financeService.save(fr, savedUser.getId());
 
         List<FinanceCategory> allList = financeRepository.findAll();
 
