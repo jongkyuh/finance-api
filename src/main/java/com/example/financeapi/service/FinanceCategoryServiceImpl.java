@@ -2,22 +2,25 @@ package com.example.financeapi.service;
 
 import com.example.financeapi.dto.FinanceCategoryRequest;
 import com.example.financeapi.dto.FinanceCategoryResponse;
+import com.example.financeapi.dto.FinanceCategoryUpdateRequest;
 import com.example.financeapi.entity.FinanceCategory;
 import com.example.financeapi.entity.Users;
-import com.example.financeapi.repository.finance.FinanceRepository;
+import com.example.financeapi.repository.finance.FinanceCategoryRepository;
 import com.example.financeapi.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class FinanceCategoryServiceImpl implements FinanceCategoryService {
 
     private final UserRepository userRepository;
-    private final FinanceRepository financeRepository;
+    private final FinanceCategoryRepository financeCategoryRepository;
 
     @Override
     public Users findUsernameById(long userId){
@@ -35,7 +38,7 @@ public class FinanceCategoryServiceImpl implements FinanceCategoryService {
         fc.setUser(findUsernameById(userId));
         fc.setFType(fr.getFType());
 
-        FinanceCategory saveCategory = financeRepository.save(fc);
+        FinanceCategory saveCategory = financeCategoryRepository.save(fc);
 
         FinanceCategoryResponse financeCategoryResponse = new FinanceCategoryResponse();
         financeCategoryResponse.setCategoryId(saveCategory.getCategoryId());
@@ -48,7 +51,7 @@ public class FinanceCategoryServiceImpl implements FinanceCategoryService {
 
     @Override
     public List<FinanceCategoryResponse> findAllCategory(long userId) {
-        List<FinanceCategory> getCategory = financeRepository.findByUserId(userId);
+        List<FinanceCategory> getCategory = financeCategoryRepository.findByUserId(userId);
         List<FinanceCategoryResponse> collect = getCategory.stream().map(c -> {
             FinanceCategoryResponse response = new FinanceCategoryResponse();
             response.setCategoryId(c.getCategoryId());
@@ -62,10 +65,22 @@ public class FinanceCategoryServiceImpl implements FinanceCategoryService {
 
     @Override
     public void deleteFinanceCategory(long userId, long categoryId) {
-        FinanceCategory findCategory = financeRepository.findById(categoryId).orElseThrow(() -> new IllegalArgumentException("해당 카테고리 없음"));
+        FinanceCategory findCategory = financeCategoryRepository.findById(categoryId).orElseThrow(() -> new IllegalArgumentException("해당 카테고리 없음"));
         if(userId != findCategory.getUser().getId()) throw new IllegalArgumentException("삭제권한이 없습니다");
 
-        financeRepository.delete(findCategory);
+        financeCategoryRepository.delete(findCategory);
+
+    }
+
+    @Override
+    public void updateFinanceCategory(FinanceCategoryUpdateRequest fr) {
+
+        FinanceCategory getCategory = financeCategoryRepository.findById(fr.getCategoryId())
+                .orElseThrow(() -> new IllegalArgumentException("해당하는 카테고리가 없습니다,"));
+
+        // 더티체킹으로 데이터 수정하기
+        getCategory.setFType(fr.getFType());
+        getCategory.setCategoryName(fr.getCategoryName());
 
     }
 

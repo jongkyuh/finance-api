@@ -2,6 +2,7 @@ package com.example.financeapi.service;
 
 import com.example.financeapi.dto.FinanceCategoryRequest;
 import com.example.financeapi.dto.FinanceCategoryResponse;
+import com.example.financeapi.dto.FinanceCategoryUpdateRequest;
 import com.example.financeapi.entity.FinanceCategory;
 import com.example.financeapi.entity.Users;
 
@@ -15,4 +16,6 @@ public interface FinanceCategoryService {
     List<FinanceCategoryResponse> findAllCategory(long userId);
 
     void deleteFinanceCategory(long userId, long categoryId);
+
+    void updateFinanceCategory(FinanceCategoryUpdateRequest financeCategoryUpdateRequest);
 }

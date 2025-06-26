@@ -2,6 +2,7 @@ package com.example.financeapi.apicontroller;
 
 import com.example.financeapi.dto.FinanceCategoryRequest;
 import com.example.financeapi.dto.FinanceCategoryResponse;
+import com.example.financeapi.dto.FinanceCategoryUpdateRequest;
 import com.example.financeapi.entity.FinanceCategory;
 import com.example.financeapi.entity.Users;
 import com.example.financeapi.service.FinanceCategoryService;
@@ -25,6 +26,7 @@ public class FinanceApiController {
         return ResponseEntity.ok(getUser.getUsername());
     }
 
+    // 가계부 카테고리 리스트 (개인별)
     @GetMapping("/category/list")
     public ResponseEntity<List<FinanceCategoryResponse>> findAllCategory(@RequestParam("userId") long userId){
 
@@ -32,7 +34,7 @@ public class FinanceApiController {
         return ResponseEntity.ok(allCategory);
 
     }
-
+    // 가계부 카테고리 만들기
     @PostMapping("/category/create")
     public ResponseEntity<FinanceCategoryResponse> insertFinanceCategory(@RequestBody FinanceCategoryRequest financeCategoryRequest){
 
@@ -47,11 +49,20 @@ public class FinanceApiController {
         return ResponseEntity.ok(saveCategoryResponse);
     }
 
+    // 가계부 카테고리 삭제하기
     @PostMapping("/category/delete/{categoryId}")
     public ResponseEntity<Void> deleteFinanceCategory(@RequestParam(name = "userId") long userId,
                                                       @PathVariable(name = "categoryId") long categoryId){
 
         financeService.deleteFinanceCategory(userId, categoryId);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    // 가계부 수정하기
+    @PostMapping("/category/update/{categoryId}")
+    public ResponseEntity<Void> updateFinanceCategory(@RequestBody FinanceCategoryUpdateRequest financeCategoryUpdateRequest){
+        financeService.updateFinanceCategory(financeCategoryUpdateRequest);
 
         return ResponseEntity.noContent().build();
     }
