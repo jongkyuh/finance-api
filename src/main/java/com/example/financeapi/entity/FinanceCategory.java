@@ -19,4 +19,4 @@ public class FinanceCategory {
 
     @Enumerated(EnumType.STRING)
     private FinanceType fType;
-;}
+}
