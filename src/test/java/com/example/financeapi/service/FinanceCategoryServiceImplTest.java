@@ -2,6 +2,7 @@ package com.example.financeapi.service;
 
 import com.example.financeapi.dto.FinanceCategoryRequest;
 import com.example.financeapi.dto.FinanceCategoryResponse;
+import com.example.financeapi.dto.FinanceCategoryUpdateRequest;
 import com.example.financeapi.entity.FinanceCategory;
 import com.example.financeapi.entity.FinanceType;
 import com.example.financeapi.entity.Users;
@@ -58,28 +59,27 @@ class FinanceCategoryServiceImplTest {
         });
     }
 
-//    @Test
-//    public void 카테고리_추가(){
-//        Users user1 = new Users();
-//        user1.setUsername("테스트1");
-//        Users savedUser = userRepository.save(user1);
-//
-//        FinanceCategoryRequest fr = new FinanceCategoryRequest();
-//        fr.setCategoryName("식비");
-//        fr.setFType(FinanceType.EXPENSE);
-//
-//        FinanceCategoryResponse savedCategory = financeCategoryService.save(fr, savedUser.getId());
-//
-//        List<FinanceCategory> allList = financeCategoryRepository.findAll();
-//
-//        assertThat(allList.size()).isEqualTo(4);
-//        FinanceCategory financeCategory = allList.get(0);
-//
-//        assertThat(financeCategory.getCategoryId()).isEqualTo(savedCategory.getCategoryId());
-//        assertThat(financeCategory.getCategoryName()).isEqualTo("식비");
-//        assertThat(financeCategory.getFType()).isEqualTo(FinanceType.EXPENSE);
-//
-//    }
+    @Test
+    public void 카테고리_추가(){
+
+        financeCategoryRepository.deleteAll();
+
+        FinanceCategoryRequest fr = new FinanceCategoryRequest();
+        fr.setCategoryName("식비");
+        fr.setFType(FinanceType.EXPENSE);
+
+        FinanceCategoryResponse savedCategory = financeCategoryService.save(fr, saveUser.getId());
+
+        List<FinanceCategory> allList = financeCategoryRepository.findAll();
+
+        assertThat(allList.size()).isEqualTo(1);
+        FinanceCategory financeCategory = allList.get(0);
+
+        assertThat(financeCategory.getCategoryId()).isEqualTo(savedCategory.getCategoryId());
+        assertThat(financeCategory.getCategoryName()).isEqualTo("식비");
+        assertThat(financeCategory.getFType()).isEqualTo(FinanceType.EXPENSE);
+
+    }
 
     @Test
     public void 유저아이디별_카테고리리스트조회(){
@@ -113,8 +113,43 @@ class FinanceCategoryServiceImplTest {
 
     @Test
     public void 카테고리삭제(){
+        financeCategoryService.deleteFinanceCategory(saveUser.getId(), fc1.getCategoryId());
+        List<FinanceCategoryResponse> allCategory = financeCategoryService.findAllCategory(saveUser.getId());
 
 
+        Assertions.assertThat(allCategory.size()).isEqualTo(1);
+
+    }
+
+    @Test
+    public void 카테고리수정시_해당카테고리_없을떄(){
+
+        FinanceCategoryUpdateRequest fr = new FinanceCategoryUpdateRequest();
+        fr.setCategoryId(1000L);
+        fr.setCategoryName("카테고리이름변경");
+        fr.setUserId(saveUser.getId());
+        fr.setFType(FinanceType.EXPENSE);
+
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> {
+            financeCategoryService.updateFinanceCategory(fr);
+        });
+
+        Assertions.assertThat(illegalArgumentException.getMessage()).isEqualTo("해당하는 카테고리가 없습니다,");
+
+    }
+
+    @Test
+    public void 카테고리_수정(){
+        FinanceCategoryUpdateRequest fr = new FinanceCategoryUpdateRequest();
+        fr.setCategoryId(fc1.getCategoryId());
+        fr.setCategoryName("카테고리이름변경");
+        fr.setUserId(saveUser.getId());
+        fr.setFType(FinanceType.EXPENSE);
+
+        financeCategoryService.updateFinanceCategory(fr);
+
+        FinanceCategory getCategory = financeCategoryRepository.findById(fr.getCategoryId()).get();
+        Assertions.assertThat(getCategory.getCategoryName()).isEqualTo("카테고리이름변경");
     }
 
 
