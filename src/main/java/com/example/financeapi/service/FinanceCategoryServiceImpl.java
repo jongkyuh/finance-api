@@ -36,7 +36,7 @@ public class FinanceCategoryServiceImpl implements FinanceCategoryService {
         // FinanceCategory 엔티티 설정
         fc.setCategoryName(fr.getCategoryName());
         fc.setUser(findUsernameById(userId));
-        fc.setFType(fr.getFType());
+        fc.setFType(fr.getFinanceType());
 
         FinanceCategory saveCategory = financeCategoryRepository.save(fc);
 
@@ -44,7 +44,7 @@ public class FinanceCategoryServiceImpl implements FinanceCategoryService {
         financeCategoryResponse.setCategoryId(saveCategory.getCategoryId());
         financeCategoryResponse.setCategoryName(saveCategory.getCategoryName());
         financeCategoryResponse.setUser(saveCategory.getUser());
-        financeCategoryResponse.setFType(saveCategory.getFType());
+        financeCategoryResponse.setFinanceType(saveCategory.getFType());
 
         return financeCategoryResponse;
     }
@@ -57,7 +57,7 @@ public class FinanceCategoryServiceImpl implements FinanceCategoryService {
             response.setCategoryId(c.getCategoryId());
             response.setCategoryName(c.getCategoryName());
             response.setUser(c.getUser());
-            response.setFType(c.getFType());
+            response.setFinanceType(c.getFType());
             return response;
         }).collect(Collectors.toList());
         return collect;

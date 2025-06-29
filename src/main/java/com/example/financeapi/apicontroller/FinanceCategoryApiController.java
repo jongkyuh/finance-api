@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/finance")
-public class FinanceApiController {
+public class FinanceCategoryApiController {
 
     private final FinanceCategoryService financeService;
 
@@ -42,7 +42,7 @@ public class FinanceApiController {
         fc.setCategoryName(financeCategoryRequest.getCategoryName());
         Long userId = financeCategoryRequest.getUserId();
         fc.setUser(financeService.findUsernameById(userId));
-        fc.setFType(financeCategoryRequest.getFType());
+        fc.setFType(financeCategoryRequest.getFinanceType());
         FinanceCategoryResponse saveCategoryResponse = financeService.save(financeCategoryRequest, userId);
 
 

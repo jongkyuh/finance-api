@@ -7,8 +7,8 @@ import lombok.Data;
 @Data
 public class FinanceCategoryRequest {
     private String categoryName;
-    @JsonProperty("fType")
-    private FinanceType fType;
+
+    private FinanceType financeType;
 
     private Long userId;
 }
