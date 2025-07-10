@@ -1,8 +1,8 @@
-package com.example.financeapi.service;
+package com.example.financeapi.service.financeCategory;
 
-import com.example.financeapi.dto.FinanceCategoryRequest;
-import com.example.financeapi.dto.FinanceCategoryResponse;
-import com.example.financeapi.dto.FinanceCategoryUpdateRequest;
+import com.example.financeapi.dto.financeCategoryDto.FinanceCategoryRequest;
+import com.example.financeapi.dto.financeCategoryDto.FinanceCategoryResponse;
+import com.example.financeapi.dto.financeCategoryDto.FinanceCategoryUpdateRequest;
 import com.example.financeapi.entity.FinanceCategory;
 import com.example.financeapi.entity.Users;
 import com.example.financeapi.repository.finance.FinanceCategoryRepository;
@@ -33,7 +33,7 @@ public class FinanceCategoryServiceImpl implements FinanceCategoryService {
     @Override
     public FinanceCategoryResponse save(FinanceCategoryRequest fr, long userId) {
         FinanceCategory fc = new FinanceCategory();
-        // FinanceCategory 엔티티 설정
+        // financeCategory 엔티티 설정
         fc.setCategoryName(fr.getCategoryName());
         fc.setUser(findUsernameById(userId));
         fc.setFType(fr.getFinanceType());

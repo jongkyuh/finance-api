@@ -1,11 +1,11 @@
 package com.example.financeapi.apicontroller;
 
-import com.example.financeapi.dto.FinanceCategoryRequest;
-import com.example.financeapi.dto.FinanceCategoryResponse;
-import com.example.financeapi.dto.FinanceCategoryUpdateRequest;
+import com.example.financeapi.dto.financeCategoryDto.FinanceCategoryRequest;
+import com.example.financeapi.dto.financeCategoryDto.FinanceCategoryResponse;
+import com.example.financeapi.dto.financeCategoryDto.FinanceCategoryUpdateRequest;
 import com.example.financeapi.entity.FinanceCategory;
 import com.example.financeapi.entity.Users;
-import com.example.financeapi.service.FinanceCategoryService;
+import com.example.financeapi.service.financeCategory.FinanceCategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

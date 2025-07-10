@@ -1,9 +1,8 @@
-package com.example.financeapi.service;
+package com.example.financeapi.service.financeCategory;
 
-import com.example.financeapi.dto.FinanceCategoryRequest;
-import com.example.financeapi.dto.FinanceCategoryResponse;
-import com.example.financeapi.dto.FinanceCategoryUpdateRequest;
-import com.example.financeapi.entity.FinanceCategory;
+import com.example.financeapi.dto.financeCategoryDto.FinanceCategoryRequest;
+import com.example.financeapi.dto.financeCategoryDto.FinanceCategoryResponse;
+import com.example.financeapi.dto.financeCategoryDto.FinanceCategoryUpdateRequest;
 import com.example.financeapi.entity.Users;
 
 import java.util.List;

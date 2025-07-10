@@ -1,13 +1,14 @@
 package com.example.financeapi.service;
 
-import com.example.financeapi.dto.FinanceCategoryRequest;
-import com.example.financeapi.dto.FinanceCategoryResponse;
-import com.example.financeapi.dto.FinanceCategoryUpdateRequest;
+import com.example.financeapi.dto.financeCategoryDto.FinanceCategoryRequest;
+import com.example.financeapi.dto.financeCategoryDto.FinanceCategoryResponse;
+import com.example.financeapi.dto.financeCategoryDto.FinanceCategoryUpdateRequest;
 import com.example.financeapi.entity.FinanceCategory;
 import com.example.financeapi.entity.FinanceType;
 import com.example.financeapi.entity.Users;
 import com.example.financeapi.repository.finance.FinanceCategoryRepository;
 import com.example.financeapi.repository.user.UserRepository;
+import com.example.financeapi.service.financeCategory.FinanceCategoryService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

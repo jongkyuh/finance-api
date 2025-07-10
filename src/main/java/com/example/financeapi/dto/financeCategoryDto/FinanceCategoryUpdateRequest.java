@@ -1,4 +1,4 @@
-package com.example.financeapi.dto;
+package com.example.financeapi.dto.financeCategoryDto;
 
 import com.example.financeapi.entity.FinanceType;
 import com.fasterxml.jackson.annotation.JsonProperty;

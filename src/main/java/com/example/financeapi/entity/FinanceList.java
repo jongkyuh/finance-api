@@ -17,18 +17,20 @@ public class FinanceList {
     private Users user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "finance_category")
+    @JoinColumn(name = "finance_category_id")
     private FinanceCategory financeCategory;
 
     @Enumerated(EnumType.STRING)
     private FinanceType financeType;
 
-    private boolean isFixed;
+   // private boolean isFixed;  // 고정비 일단 생략
 
     private int amount;
     private String memo;
 
     private LocalDateTime localDateTime;
 
-
+    /**
+     * create시 유저아이디, 카테고리, 가계부타입, 금액, 메모
+     */
 }
