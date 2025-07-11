@@ -29,10 +29,7 @@ public class FinanceListServiceImpl implements FinanceListService{
                 .orElseThrow(() -> new IllegalArgumentException("해당 유저가 업습니다."));
         financeList.setUser(getUser);
 
-        financeListRepository.save(financeList);
-
-
-
+        FinanceList saveList = financeListRepository.save(financeList);
 
 
     }
