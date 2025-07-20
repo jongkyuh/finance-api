@@ -67,7 +67,7 @@ class FinanceCategoryServiceImplTest {
 
         FinanceCategoryRequest fr = new FinanceCategoryRequest();
         fr.setCategoryName("식비");
-        fr.setFType(FinanceType.EXPENSE);
+        fr.setFinanceType(FinanceType.EXPENSE);
 
         FinanceCategoryResponse savedCategory = financeCategoryService.save(fr, saveUser.getId());
 
