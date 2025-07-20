@@ -12,7 +12,7 @@ public class FinanceListCreateDto {
      */
 
     private long userId;
-    private FinanceCategory financeCategory;
+    private long financeCategoryId;
     private FinanceType financeType;
     private int amount;
     private String memo;
