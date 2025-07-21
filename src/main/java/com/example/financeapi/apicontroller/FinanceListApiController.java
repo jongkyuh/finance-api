@@ -19,6 +19,7 @@ public class FinanceListApiController {
     @PostMapping("/create")
     public ResponseEntity<Void> createList(@RequestBody FinanceListCreateDto financeListCreateDto){
 
+        System.out.println(financeListCreateDto.getFinanceCategoryId());
         financeListService.save(financeListCreateDto);
         return ResponseEntity.ok().build();
     }
